@@ -8,12 +8,17 @@ import { CharacterCard } from '../../components';
 import './SpacecraftSummary.scss';
 
 export interface SpacecraftSummaryProps {
+    maxCrew: number;
+    maxPassengers: number;
     selectedCrew: Character[];
     selectedPassengers: Character[];
+    onRemoveCrew: (passenger: Character) => void;
+    onRemovePassenger: (passenger: Character) => void;
+    onLaunch: () => void;
 }
 
 export function SpacecraftSummary(props: SpacecraftSummaryProps): any {
-    const { selectedCrew, selectedPassengers } = props;
+    const { selectedCrew, selectedPassengers, maxCrew, maxPassengers } = props;
 
     const renderCrewMembers = () => {
         if (selectedCrew.length === 0) {
@@ -23,7 +28,12 @@ export function SpacecraftSummary(props: SpacecraftSummaryProps): any {
         return selectedCrew.map((passenger, index) => {
             return (
                 <div className="mb-3" key={index}>
-                    <CharacterCard character={passenger} isSelectedCrew={true} isSelectedPassenger={false} />
+                    <CharacterCard
+                        character={passenger}
+                        isSelectedCrew={true}
+                        isSelectedPassenger={false}
+                        onToggleSelected={() => props.onRemoveCrew(passenger)}
+                    />
                 </div>
             );
         });
@@ -37,11 +47,18 @@ export function SpacecraftSummary(props: SpacecraftSummaryProps): any {
         return selectedPassengers.map((passenger, index) => {
             return (
                 <div className="mb-3" key={index}>
-                    <CharacterCard character={passenger} isSelectedCrew={false} isSelectedPassenger={true} />
+                    <CharacterCard
+                        character={passenger}
+                        isSelectedCrew={false}
+                        isSelectedPassenger={true}
+                        onToggleSelected={() => props.onRemovePassenger(passenger)}
+                    />
                 </div>
             );
         });
     };
+
+    const isLaunchDisabled = selectedCrew.length !== maxCrew || selectedPassengers.length !== maxPassengers;
 
     return (
         <div className="spacecraft-summary">
@@ -50,11 +67,21 @@ export function SpacecraftSummary(props: SpacecraftSummaryProps): any {
             </div>
 
             <div className="spacecraft-summary__lists">
-                <h5 className="mt-4">Crew Members </h5>
+                <h5 className="mt-4">
+                    Crew Members ({selectedCrew.length} / {maxCrew})
+                </h5>
                 {renderCrewMembers()}
 
-                <h5 className="mt-4">Passengers</h5>
+                <h5 className="mt-4">
+                    Passengers ({selectedPassengers.length} / {maxPassengers})
+                </h5>
                 {renderPassengers()}
+            </div>
+
+            <div className="spacecraft-summary__actions">
+                <Button className="mt-3" block disabled={isLaunchDisabled} onClick={props.onLaunch}>
+                    Launch Spacecraft
+                </Button>
             </div>
         </div>
     );

@@ -16,13 +16,25 @@ function App() {
     const [selectedCrew, setSelectedCrew] = useState<Character[]>([]);
     const [selectedPassengers, setSelectedPassengers] = useState<Character[]>([]);
     const [toggleValue, setToggleValue] = useState(SelectionMode.Crew);
-
+    const [crewCapacity, setCrewCapacity] = useState<number>(0);
+    const [passengersCapacity, setPassengersCapacity] = useState<number>(0);
     let timeout: ReturnType<typeof setTimeout>;
 
     const toggleOptions = [
         { name: 'Crew', value: SelectionMode.Crew },
         { name: 'Passenger', value: SelectionMode.Passenger },
     ];
+
+    useEffect(() => {
+        const starshipApiUrl = `https://swapi.dev/api/starships/10/`;
+
+        fetch(starshipApiUrl)
+            .then((res) => res.json())
+            .then((response) => {
+                setCrewCapacity(+response.crew);
+                setPassengersCapacity(+response.passengers);
+            });
+    }, []);
 
     useEffect(() => {
         if (!searchTerm) {
@@ -51,11 +63,25 @@ function App() {
     };
 
     const addCrewMember = (character: Character) => {
-        setSelectedCrew([...selectedCrew, character]);
+        if (selectedCrew.length < crewCapacity) {
+            setSelectedCrew([...selectedCrew, character]);
+        }
     };
 
     const addPassenger = (character: Character) => {
-        setSelectedPassengers([...selectedPassengers, character]);
+        if (selectedPassengers.length < passengersCapacity) {
+            setSelectedPassengers([...selectedPassengers, character]);
+        }
+    };
+
+    const removePassenger = (character: Character) => {
+        const newPassengers = selectedPassengers.filter((c) => c.name !== character.name);
+        setSelectedPassengers(newPassengers);
+    };
+
+    const removeCrewMember = (character: Character) => {
+        const newCrew = selectedCrew.filter((c) => c.name !== character.name);
+        setSelectedCrew(newCrew);
     };
 
     const renderSearchResults = () => {
@@ -66,10 +92,19 @@ function App() {
                 selectedCrew={selectedCrew}
                 selectedPassengers={selectedPassengers}
                 onToggleSelection={(character) => {
-                    if (toggleValue === SelectionMode.Crew) {
-                        addCrewMember(character);
+                    const isSelectedCrew = selectedCrew.findIndex((p) => p.name === character.name) > -1;
+                    const isSelectedPassenger = selectedPassengers.findIndex((p) => p.name === character.name) > -1;
+
+                    if (isSelectedCrew) {
+                        removeCrewMember(character);
+                    } else if (isSelectedPassenger) {
+                        removePassenger(character);
                     } else {
-                        addPassenger(character);
+                        if (toggleValue === SelectionMode.Crew) {
+                            addCrewMember(character);
+                        } else {
+                            addPassenger(character);
+                        }
                     }
                 }}
             />
@@ -120,7 +155,21 @@ function App() {
                 </div>
 
                 <div className="col-sm-12 col-lg-4 spacecraft-col">
-                    <SpacecraftSummary selectedCrew={selectedCrew} selectedPassengers={selectedPassengers} />
+                    <SpacecraftSummary
+                        maxCrew={crewCapacity}
+                        maxPassengers={passengersCapacity}
+                        selectedCrew={selectedCrew}
+                        selectedPassengers={selectedPassengers}
+                        onRemoveCrew={(character) => {
+                            removeCrewMember(character);
+                        }}
+                        onRemovePassenger={(character) => {
+                            removePassenger(character);
+                        }}
+                        onLaunch={() => {
+                            console.log('%c[ App ] - Launch Spacecraft:', 'color: #FF4900');
+                        }}
+                    />
                 </div>
             </div>
         </div>

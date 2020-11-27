@@ -7,7 +7,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 import { SelectionMode } from './enums';
 import { Character, SearchResponse } from './interfaces';
-import { SearchResults } from './components';
+import { SearchResults, SpacecraftSummary } from './components';
 
 function App() {
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -119,7 +119,9 @@ function App() {
                     {renderSearchResults()}
                 </div>
 
-                <div className="col-sm-12 col-lg-4 spacecraft-col">Spacecraft</div>
+                <div className="col-sm-12 col-lg-4 spacecraft-col">
+                    <SpacecraftSummary selectedCrew={selectedCrew} selectedPassengers={selectedPassengers} />
+                </div>
             </div>
         </div>
     );

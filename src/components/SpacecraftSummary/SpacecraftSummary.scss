@@ -1,0 +1,13 @@
+.spacecraft-summary {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    &__header {
+        flex-shrink: 0;
+    }
+
+    &__lists {
+        flex-grow: 1;
+    }
+}

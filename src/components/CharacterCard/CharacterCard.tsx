@@ -10,7 +10,7 @@ export interface CharacterCardProps {
     character: Character;
     isSelectedCrew: boolean;
     isSelectedPassenger: boolean;
-    onToggleSelected: () => void;
+    onToggleSelected?: () => void;
 }
 
 export function CharacterCard(props: CharacterCardProps): any {

@@ -167,7 +167,7 @@ function App() {
                             removePassenger(character);
                         }}
                         onLaunch={() => {
-                            console.log('%c[ App ] - Launch Spacecraft:', 'color: #FF4900');
+                            console.log('%c[ App ] - Launch Spacecraft 🚀', 'color: #FF4900');
                         }}
                     />
                 </div>

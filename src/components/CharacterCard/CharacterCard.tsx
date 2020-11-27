@@ -1,20 +1,53 @@
 import React from 'react';
 
+import Badge from 'react-bootstrap/Badge';
+
 import { Character } from '../../interfaces';
 
 import './CharacterCard.scss';
 
 export interface CharacterCardProps {
     character: Character;
+    isSelectedCrew: boolean;
+    isSelectedPassenger: boolean;
+    onToggleSelected: () => void;
 }
 
 export function CharacterCard(props: CharacterCardProps): any {
-    const { character } = props;
+    const { character, isSelectedCrew, isSelectedPassenger, onToggleSelected } = props;
 
     const avatarId = character.url.split('/').slice(-2)[0];
 
+    const cardClasses = [
+        'character-card',
+        isSelectedCrew && 'character-card--selected-crew',
+        isSelectedPassenger && 'character-card--selected-passenger',
+    ]
+        .filter((c) => !!c)
+        .join(' ');
+
+    const renderBadge = () => {
+        if (isSelectedCrew) {
+            return (
+                <Badge pill variant="warning">
+                    Crew
+                </Badge>
+            );
+        }
+
+        if (isSelectedPassenger) {
+            return (
+                <Badge pill variant="info">
+                    Passenger
+                </Badge>
+            );
+        }
+
+        return null;
+    };
+
     return (
-        <div className="character-card" role="button">
+        <div className={cardClasses} onClick={onToggleSelected} role="button">
             <div
                 className="character-card__avatar"
                 style={{
@@ -26,7 +59,6 @@ export function CharacterCard(props: CharacterCardProps): any {
                 <div className="character-card__name" title={character.name}>
                     {character.name}
                 </div>
-
                 <table className="character-card__attributes">
                     <tbody>
                         <tr>
@@ -40,6 +72,8 @@ export function CharacterCard(props: CharacterCardProps): any {
                     </tbody>
                 </table>
             </div>
+
+            <div className="character-card__badge">{renderBadge()}</div>
         </div>
     );
 }

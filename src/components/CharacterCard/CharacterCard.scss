@@ -14,6 +14,22 @@
     }
 }
 
+.character-card--selected-crew {
+    border-color: #fdb75b;
+
+    &:hover {
+        background-color: rgba(#fdb75b, 0.1);
+    }
+}
+
+.character-card--selected-passenger {
+    border-color: #93c2de;
+
+    &:hover {
+        background-color: rgba(#93c2de, 0.1);
+    }
+}
+
 .character-card__avatar {
     width: 70px;
     height: 70px;
@@ -48,4 +64,8 @@
         padding-right: 10px;
         text-align: right;
     }
+}
+
+.character-card__badge {
+    flex-shrink: 1;
 }

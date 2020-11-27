@@ -1,0 +1,51 @@
+.character-card {
+    border: 1px solid #888;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    min-width: 250px;
+    min-height: 80px;
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.2s ease-in, border-color 0.2s ease-in;
+
+    &:hover {
+        background-color: rgba(#888, 0.1);
+    }
+}
+
+.character-card__avatar {
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-position: center;
+    background-color: #000;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.character-card__content {
+    margin-right: auto;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.character-card__name {
+    font-weight: bold;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.character-card__attributes {
+    color: #d9d9d9;
+    font-weight: 400;
+    font-size: 14px;
+
+    tr > td:first-child {
+        font-weight: 600;
+        padding-right: 10px;
+        text-align: right;
+    }
+}

@@ -1,19 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Learn React
-                </a>
+        <div className="container">
+            <header className="page-header">
+                <h2>Star Wars - Spacecraft Management</h2>
             </header>
+
+            <div className="row">
+                <div className="col-sm-12 col-lg-8 search-col">
+                    Search Results
+                </div>
+
+                <div className="col-sm-12 col-lg-4 spacecraft-col">
+                    Spacecraft
+                </div>
+            </div>
         </div>
     );
 }

@@ -1,3 +1,16 @@
+##  About
+This is a personal project built in React for learning purposes. It uses the Star Wars REST API (SWAPI).
+
+##  Built with
+- React
+- Typescript
+- Bootstrap
+
+##  Functionalities
+- People Search
+- Create Crew Members a Passengers from a list of People so the Millennium Falcon Spacecraft can be launched
+- Add / Remove People from the Spacecraft
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

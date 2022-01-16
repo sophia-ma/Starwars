@@ -15,7 +15,7 @@ export interface SearchResultsProps {
     onToggleSelection: (character: Character) => void;
 }
 
-export function SearchResults(props: SearchResultsProps): any {
+export function SearchResults(props: SearchResultsProps): React.ReactElement  {
     const { isLoading, searchResults, selectedCrew, selectedPassengers, onToggleSelection } = props;
 
     const characterCards = searchResults.map((character, index) => {

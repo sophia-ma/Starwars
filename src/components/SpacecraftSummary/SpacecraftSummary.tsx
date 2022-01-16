@@ -17,7 +17,7 @@ export interface SpacecraftSummaryProps {
     onLaunch: () => void;
 }
 
-export function SpacecraftSummary(props: SpacecraftSummaryProps): any {
+export function SpacecraftSummary(props: SpacecraftSummaryProps): React.ReactElement  {
     const { selectedCrew, selectedPassengers, maxCrew, maxPassengers } = props;
 
     const renderCrewMembers = () => {

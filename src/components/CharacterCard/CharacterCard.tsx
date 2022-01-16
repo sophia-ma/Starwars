@@ -13,7 +13,7 @@ export interface CharacterCardProps {
     onToggleSelected?: () => void;
 }
 
-export function CharacterCard(props: CharacterCardProps): any {
+export function CharacterCard(props: CharacterCardProps): React.ReactElement {
     const { character, isSelectedCrew, isSelectedPassenger, onToggleSelected } = props;
 
     const avatarId = character.url.split('/').slice(-2)[0];
